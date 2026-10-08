@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyümölcsnapló</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8f1;
+            color: #263322;
+        }
+
+        header {
+            background: #65a30d;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .counter {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .counter-number {
+            font-size: 55px;
+            font-weight: bold;
+            color: #65a30d;
+        }
+
+        .counter-text {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 18px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #84cc16;
+            transition: 0.3s;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .fruits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 18px;
+        }
+
+        .fruit {
+            background: white;
+            border: none;
+            border-radius: 20px;
+            padding: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.2s;
+        }
+
+        .fruit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.13);
+        }
+
+        .fruit:active {
+            transform: scale(0.95);
+        }
+
+        .fruit-icon {
+            font-size: 65px;
+            margin-bottom: 10px;
+        }
+
+        .fruit-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .today {
+            margin-top: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .today h2 {
+            margin-top: 0;
+        }
+
+        #list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .item {
+            background: #ecfccb;
+            padding: 8px 13px;
+            border-radius: 20px;
+        }
+
+        .reset {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            background: #ef4444;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .reset:hover {
+            background: #dc2626;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🍎 Gyümölcsnapló</h1>
+    <p>Kövesd nyomon, mennyi gyümölcsöt fogyasztottál ma!</p>
+</header>
+
+<div class="container">
+
+    <div class="counter">
+        <div class="counter-number" id="count">0</div>
+        <div class="counter-text">adag gyümölcsöt fogyasztottál ma</div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+
+        <p id="goalText">Még 5 adag a napi célhoz!</p>
+    </div>
+
+    <h2>🍓 Válaszd ki, mit ettél!</h2>
+
+    <div class="fruits">
+
+        <button class="fruit" onclick="addFruit('🍎', 'Alma')">
+            <div class="fruit-icon">🍎</div>
+            <div class="fruit-name">Alma</div>
+        </button>
+
+        <button class="fruit" onclick="addFruit('🍌', 'Banán')">
+            <div class="fruit-icon">🍌</div>
+            <div class="fruit-name">Banán</div>
+        </button>
+
+        <button class="fruit" onclick="addFruit('🍓', 'Eper')">
+            <div class="fruit-icon">🍓</div>
+            <div class="fruit-name">Eper</div>
+        </button>
+
+        <button class="fruit" onclick="addFruit('🍊', 'Narancs')">
+            <div class="fruit-icon">🍊</div>
+            <div class="fruit-name">Narancs</div>
+        </button>
+
+        <button class="fruit" onclick="addFruit('🍉', 'Görögdinnye')">
+            <div class="fruit-icon">🍉</div>
+            <div class="fruit-name">Görögdinnye</div>
+        </button>
+
+        <button class="fruit" onclick="addFruit('🍇', 'Szőlő')">
+            <div class="fruit-icon">🍇</div>
+            <div class="fruit-name">Szőlő</div>
+        </button>
+
+        <button class="fruit" onclick="addFruit('🥝', 'Kiwi')">
+            <div class="fruit-icon">🥝</div>
+            <div class="fruit-name">Kiwi</div>
+        </button>
+
+        <button class="fruit" onclick="addFruit('🍑', 'Őszibarack')">
+            <div class="fruit-icon">🍑</div>
+            <div class="fruit-name">Őszibarack</div>
+        </button>
+
+        <button class="fruit" onclick="addFruit('🍐', 'Körte')">
+            <div class="fruit-icon">🍐</div>
+            <div class="fruit-name">Körte</div>
+        </button>
+
+        <button class="fruit" onclick="addFruit('🍍', 'Ananász')">
+            <div class="fruit-icon">🍍</div>
+            <div class="fruit-name">Ananász</div>
+        </button>
+
+    </div>
+
+    <div class="today">
+        <h2>🍽️ Amit ma ettél</h2>
+        <div id="list">
+            <p>Még nincs hozzáadott gyümölcs.</p>
+        </div>
+
+        <button class="reset" onclick="resetDay()">
+            🗑️ Mai nap törlése
+        </button>
+    </div>
+
+</div>
+
+<script>
+    let count = 0;
+    let fruits = [];
+
+    function addFruit(icon, name) {
+        count++;
+        fruits.push({
+            icon: icon,
+            name: name
+        });
+
+        updatePage();
+    }
+
+    function updatePage() {
+        document.getElementById("count").textContent = count;
+
+        let percentage = Math.min((count / 5) * 100, 100);
+        document.getElementById("progress").style.width = percentage + "%";
+
+        let remaining = Math.max(5 - count, 0);
+
+        if (remaining > 0) {
+            document.getElementById("goalText").textContent =
+                "Még " + remaining + " adag a napi célhoz!";
+        } else {
+            document.getElementById("goalText").textContent =
+                "🎉 Elérted a napi célt!";
+        }
+
+        let list = document.getElementById("list");
+        list.innerHTML = "";
+
+        fruits.forEach(function(fruit) {
+            let item = document.createElement("div");
+            item.className = "item";
+            item.textContent = fruit.icon + " " + fruit.name;
+            list.appendChild(item);
+        });
+    }
+
+    function resetDay() {
+        count = 0;
+        fruits = [];
+        updatePage();
+
+        document.getElementById("list").innerHTML =
+            "<p>Még nincs hozzáadott gyümölcs.</p>";
+    }
+</script>
+
+</body>
+</html>
